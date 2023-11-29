@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import TodoReducers from './reducers/TodoReducers';
+import {TodoReducers} from './reducers/TodoReducers';
 import thunk from 'redux-thunk';
 
 const middleware = [thunk];
