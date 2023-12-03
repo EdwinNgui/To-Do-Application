@@ -1,34 +1,26 @@
 import './App.css';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AddToDoAction, RemoveToDoAction } from './actions/TodoActions';
+import { AddTodoAction, RemoveTodoAction } from './actions/TodoActions';
 
 function App() {
   
+  //Consts needed for transfering object/array information
   const [todo, setTodo] = useState();
-
   const dispatch = useDispatch();
   const Todo = useSelector((state) => state.Todo);
-
   const { todos } = Todo;
 
+  //Handles info for adding
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(AddToDoAction(Todo));
+    dispatch(AddTodoAction(todo));
     console.log(e);
   };
-
-  // Ensures single task and no spam adding
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (todo) {
-  //     dispatch(AddToDoAction({ id: Date.now(), todo })); // Pass the new 'todo'
-  //     setTodo(''); // Clear the input after adding todo
-  //   }
-  // };
   
+  //Handles info for removing
   const removeHandler = (t) => {
-    dispatch(RemoveToDoAction(t));
+    dispatch(RemoveTodoAction(t.id));
   };
 
   return (
@@ -66,7 +58,7 @@ function App() {
             {
               todos && todos.map((t) => (
                 <li key={t.id} className='singleTodo'>
-                <span className='todoText'>{t.todo}</span>
+                <span className='todoText'>{t.id}</span>
                 <button
                   style={{
                     borderRadius: 25,

@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 
 const middleware = [thunk];
 
+//Our store is Todo (it's where everything goes)
 const store = configureStore({
   reducer: {
     Todo: TodoReducers
