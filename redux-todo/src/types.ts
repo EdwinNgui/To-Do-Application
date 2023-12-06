@@ -16,7 +16,7 @@ export interface TodoState {
 }
 
 export type TodoAction =
-  | { type: "ADD_TODO"; payload: Todo }
+  | { type: "ADD_TODO"; payload: string }
   | { type: "REMOVE_TODO"; payload: string };
 
 export type DispatchType = ThunkDispatch<RootState, void, AnyAction>;

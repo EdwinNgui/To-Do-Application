@@ -6,7 +6,7 @@ interface TodoState {
 // States what type each action is going to use
 type TodoAction = 
   | { type: "ADD_TODO"; payload: string}
-  | { type: "REMOVE_TODO"; payload: number}
+  | { type: "REMOVE_TODO"; payload: string}
   //ISSUE: might need to payload number for indexing or string for id
 
 //Sends applies the action based on the case (add/remove)
