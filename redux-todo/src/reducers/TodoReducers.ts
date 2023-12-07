@@ -1,6 +1,8 @@
 import { Reducer } from "redux";
 import { TodoAction, TodoState } from "./../types";
 
+//we will always dispatch a todo object from pur actions as payload!
+//no more changes
 export const TodoReducers: Reducer<TodoState, TodoAction> = (
   state = { todos: [] },
   action

@@ -3,6 +3,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { store } from "./store";
 import { AnyAction } from "redux";
 
+//set task because todo prop inside todo creates confusion!!
 export interface Todo {
   id: string;
   task: string;
@@ -20,6 +21,7 @@ export interface TodoAction extends AnyAction {
   payload?: Todo;
 }
 
+//#best practices! Source: https://redux.js.org/usage/usage-with-typescript#define-root-state-and-dispatch-types
 export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = ThunkDispatch<RootState, void, TodoAction>;

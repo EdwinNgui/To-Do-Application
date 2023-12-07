@@ -1,21 +1,27 @@
 import "./App.css";
-import React, { useState, FormEvent } from "react";
+import React, { useRef, FormEvent } from "react";
+
+//these are custom hooks for redux thunk to work made by me!!
+//see the source of how i made in ./hooks/thunk file!!
 import { useAppSelector, useAppDispatch } from "./hooks/thunk";
 import { AddTodoAction, RemoveTodoAction } from "./actions/TodoActions";
 import { RootState, Todo } from "./types"; // Replace with your RootState and Todo types
 
 function App() {
-  //const [todo, setTodo] = useState<Todo>({ id: '', /* other properties */ });
-  const [todo, setTodo] = useState<string>("");
+  //you should be using useRef Hook instead of useState for input #bestPractices
+  //as we are already handling state in redux
+  const todoTaskRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
   const Todo = useAppSelector((state: RootState) => state.Todo);
   const { todos } = Todo;
 
+  //to understand changes in handle function pls read useRef docs
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (todo.trim()) {
-      dispatch(AddTodoAction(todo));
-      setTodo("");
+    const task = todoTaskRef.current?.value;
+    if (task?.trim()) {
+      dispatch(AddTodoAction(task));
+      todoTaskRef.current!.value = "";
     }
   };
 
@@ -31,6 +37,7 @@ function App() {
         <form onSubmit={handleSubmit}>
           <input
             placeholder="Enter a task"
+            ref={todoTaskRef}
             style={{
               width: 350,
               padding: 10,
@@ -38,8 +45,6 @@ function App() {
               border: "none",
               fontSize: 20,
             }}
-            onChange={(e) => setTodo(e.target.value)}
-            value={todo}
           />
           <button
             type="submit"
@@ -55,8 +60,10 @@ function App() {
         </form>
 
         <ul className="allTodos">
+          {/* Please dont use variables like t instead use todo! */}
           {todos.map((todo) => (
             <li key={todo.id} className="singleTodo">
+              {/* todo text is equavalent to task property of todo object not id!*/}
               <span className="todoText">{todo.task}</span>
               <button
                 style={{
