@@ -13,4 +13,4 @@ Please try to break your `App.tsx` into a folder called `Components`. It's a bad
 Please beware of dev and prod dependencies in your project. You don't want to make your React project bulky by including dev dependencies that you don't need in production. Please follow the way I maintained the dependencies in `package.json` (I have edited it now!) 📦
 
 👉 **Point 4:**
-Please try to code by commenting, as I did. Your code didn't have a single line of code except some issue highlighting! 🤔
+Please try to code by commenting, as I did. Your code didn't have a single line of comment except some issue highlighting! 🤔
