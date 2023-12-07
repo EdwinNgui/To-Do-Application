@@ -1,21 +1,22 @@
 import "./App.css";
 import React, { useRef, FormEvent } from "react";
 
-//these are custom hooks for redux thunk to work made by me!!
-//see the source of how i made in ./hooks/thunk file!!
+// Custom hooks for redux thunk made by Rahat (see './hooks/thunk')
 import { useAppSelector, useAppDispatch } from "./hooks/thunk";
 import { AddTodoAction, RemoveTodoAction } from "./actions/TodoActions";
 import { RootState, Todo } from "./types"; // Replace with your RootState and Todo types
 
 function App() {
-  //you should be using useRef Hook instead of useState for input #bestPractices
-  //as we are already handling state in redux
+  //Tip: Implement useRef hook rather than useState
+  // => because useState manages local state (also managed in redux) and can cause re-renders
+  // => where as useRef does not re-render when values change
   const todoTaskRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
   const Todo = useAppSelector((state: RootState) => state.Todo);
   const { todos } = Todo;
 
-  //to understand changes in handle function pls read useRef docs
+  //Tip: To understand changes in handle function pls read useRef docs
+  // => useRef handles background variables without triggering a re-render
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const task = todoTaskRef.current?.value;
@@ -25,6 +26,7 @@ function App() {
     }
   };
 
+  //Calls the remove function given the t value
   const removeHandler = (t: Todo) => {
     dispatch(RemoveTodoAction(t));
   };
@@ -60,10 +62,11 @@ function App() {
         </form>
 
         <ul className="allTodos">
-          {/* Please dont use variables like t instead use todo! */}
+          {/* Uses variable name of todo to specifically show what is being mapped */}
+          {/* Takes the todos (array of todo objects) and maps each object to become available */}
           {todos.map((todo) => (
             <li key={todo.id} className="singleTodo">
-              {/* todo text is equavalent to task property of todo object not id!*/}
+              {/* Todo text is equivalent to task property of todo object not id!*/}
               <span className="todoText">{todo.task}</span>
               <button
                 style={{

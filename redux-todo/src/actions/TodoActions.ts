@@ -2,18 +2,18 @@ import { Dispatch } from "redux";
 import { RootState, Todo } from "../types";
 import { AnyAction } from "redux";
 
-// Adds the task to the array
+// Adds the user-inputted task to the array
 export function AddTodoAction(task: string) {
-  //returning a function for thunk for asynchrnous actions!
-  //if fetching data from api make it async!
+  //Returning a function for thunk for asynchrnous actions!
+  //Tip: if fetching data from api make it async!
   return function (dispatch: Dispatch<AnyAction>, getState: () => RootState) {
-    //get todoState from rootState! & destructure todos from todoState
+    //get todoState from rootState & destructure todos from todoState
     const {
       Todo: { todos },
     } = getState();
 
-    //your each element in todos is a todo ! so todo have a property todo is reducing readability!
-    //please don't use varibales like i ,j, k in projects! its a very bad practice!
+    // Each element in todos (stores the tasks) is a todo (task object): Has property of id and task
+    //Tip: Do not reuse variable names; makes it hard to read => Instead use descriptive variable names
     const hasTodo = todos.find((todo) => todo.task === task);
 
     // Checks if there is any existing in it
@@ -33,10 +33,10 @@ export function AddTodoAction(task: string) {
 
 // Removes the todo from the array
 export function RemoveTodoAction(todo: Todo) {
-  //if you are not using a parameter then pls use underscore(_) instead of it!
+  // _ represents a placeholder for the parameter
+  //RootState needed dispatch of type Dispatch and _ of type ()
   return function (dispatch: Dispatch, _: () => RootState) {
-    //we will always dispatch todo types as array is of type todo!
-    //#best practices
+    // Dispatches todo types as array of type todo (keeps consistency for best practices)
     dispatch<AnyAction>({
       type: "REMOVE_TODO",
       payload: todo, // Ensure the payload is the correct todo ID

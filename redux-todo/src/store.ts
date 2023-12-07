@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TodoReducers } from "./reducers/TodoReducers";
 
-//dont need to setup thunk as my thunk dispatch hook can handle it!
+//Store file with dispatching functionality located in the thunk dispatch hook
 export const store = configureStore({
   reducer: {
     Todo: TodoReducers,

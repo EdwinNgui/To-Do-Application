@@ -4,7 +4,7 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { store } from "./store";
 
-//no changes here
+//Regular index file, allows redux store to be accessed anywhere within the app
 ReactDOM.render(
   <Provider store={store}>
     <App />
