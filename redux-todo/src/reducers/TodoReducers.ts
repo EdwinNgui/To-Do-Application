@@ -1,28 +1,28 @@
-// Defines the structure for the state object to use; array of strings
-interface TodoState {
-  todos: string[];
-}
+import { Reducer } from "redux";
+import { TodoAction, TodoState } from "./../types";
 
-// States what type each action is going to use
-type TodoAction = 
-  | { type: "ADD_TODO"; payload: string}
-  | { type: "REMOVE_TODO"; payload: string}
-  //ISSUE: might need to payload number for indexing or string for id
-
-//Sends applies the action based on the case (add/remove)
-//Specifies parameters and their types
-export const TodoReducers = (state: TodoState = { todos: [] }, action: TodoAction): TodoState => {
+export const TodoReducers: Reducer<TodoState, TodoAction> = (
+  state = { todos: [] },
+  action
+) => {
   switch (action.type) {
     case "ADD_TODO":
-      const addedTodos = [...state.todos, action.payload];
-      return { todos: addedTodos };
-    
+      if (action.payload) {
+        const addedTodos = [...state.todos, action.payload];
+        return { todos: addedTodos };
+      }
+      return state;
+
     case "REMOVE_TODO":
-      const todoIdToRemove = action.payload.toString(); // Ensure payload is a string
-      const updatedTodos = state.todos.filter((todo) => todo !== todoIdToRemove);
-      // console.log("Updated Todos after REMOVE_TODO:", updatedTodos); // Was for bug testing
-      return { todos: updatedTodos };
-    
+      if (action.payload) {
+        const todoToRemove = action.payload;
+        const updatedTodos = state.todos.filter(
+          (todo) => todo.id !== todoToRemove.id
+        );
+        return { todos: updatedTodos };
+      }
+      return state;
+
     default:
       return state;
   }
