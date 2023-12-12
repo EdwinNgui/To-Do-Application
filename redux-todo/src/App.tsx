@@ -3,7 +3,7 @@ import React, { useRef, FormEvent } from "react";
 
 // Custom hooks for redux thunk made by Rahat (see './hooks/thunk')
 import { useAppSelector, useAppDispatch } from "./hooks/thunk";
-import { AddTodoAction, RemoveTodoAction } from "./actions/TodoActions";
+import { AddTodoAction, RemoveTodoAction, ToggleTodoAction } from "./actions/TodoActions";
 import { RootState, Todo } from "./types"; // Replace with your RootState and Todo types
 
 function App() {
@@ -31,58 +31,64 @@ function App() {
     dispatch(RemoveTodoAction(t));
   };
 
+  //Manages the checkbox logic
+  const handleCheckboxChange = (todo: Todo) => {
+    dispatch(ToggleTodoAction(todo)); // Dispatches the action with the todo object
+    console.log('Todo being updated:', todo);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <h2>To Do List App in Redux</h2>
+        <h2 id="title">Task Time</h2>
 
         <form onSubmit={handleSubmit}>
           <input
-            placeholder="Enter a task"
+            placeholder="What's next?"
             ref={todoTaskRef}
-            style={{
-              width: 350,
-              padding: 10,
-              borderRadius: 20,
-              border: "none",
-              fontSize: 20,
-            }}
+            id="task-input"
           />
           <button
             type="submit"
-            style={{
-              padding: 12,
-              borderRadius: 25,
-              fontSize: 15,
-              marginLeft: 20,
-            }}
+            id="add-btn"
           >
-            Go
+            Add
           </button>
         </form>
 
-        <ul className="allTodos">
-          {/* Uses variable name of todo to specifically show what is being mapped */}
-          {/* Takes the todos (array of todo objects) and maps each object to become available */}
-          {todos.map((todo) => (
-            <li key={todo.id} className="singleTodo">
-              {/* Todo text is equivalent to task property of todo object not id!*/}
-              <span className="todoText">{todo.task}</span>
-              <button
-                style={{
-                  borderRadius: 25,
-                  padding: 10,
-                  border: "1px solid white",
-                  color: "white",
-                  backgroundColor: "orangered",
-                }}
-                onClick={() => removeHandler(todo)}
-              >
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
+        {/* Next line ensures no rendering for empty array of Todo */}
+        {todos.length > 0 && (
+          <div className="notepad">
+            <ul className="allTodos">
+              {/* task mapping */}
+              {todos.map((todo) => (
+                <li key={todo.id} className="singleTodo">
+                  {/* Handles checkbox */}
+                  <input
+                    type="checkbox"
+                    id={`todo-${todo.id}`}
+                    className="todo-checkbox"
+                    checked={todo.completed}
+                    onChange={() => handleCheckboxChange(todo)}
+                  />
+                  
+                  {/* Handles text and completion status */}
+                  <span className={todo.completed ? 'todoText completed' : 'todoText'}>
+                    {todo.task}
+                  </span>
+                   
+                  {/* Handles deletion button */}
+                  <button
+                    id="del-btn"
+                    onClick={() => removeHandler(todo)}
+                  >
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </header>
     </div>
   );

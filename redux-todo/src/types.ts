@@ -7,6 +7,7 @@ import { AnyAction } from "redux";
 export interface Todo {
   id: string;
   task: string; //Used to be todo (very confusing)
+  completed: boolean; //Used for managing the checkbox completion
 }
 
 //Defines the structure of TodoState, as an array of Todo objects (which each have thier own id and task)

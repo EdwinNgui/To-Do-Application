@@ -6,6 +6,7 @@ import { AnyAction } from "redux";
 export function AddTodoAction(task: string) {
   //Returning a function for thunk for asynchrnous actions!
   //Tip: if fetching data from api make it async!
+  //USE REACT QUERY THROUGH THUNK by returning aynsc action functions
   return function (dispatch: Dispatch<AnyAction>, getState: () => RootState) {
     //get todoState from rootState & destructure todos from todoState
     const {
@@ -40,6 +41,17 @@ export function RemoveTodoAction(todo: Todo) {
     dispatch<AnyAction>({
       type: "REMOVE_TODO",
       payload: todo, // Ensure the payload is the correct todo ID
+    });
+  };
+}
+
+//Toggles the checkbox for each task
+export function ToggleTodoAction(todo: Todo) {
+  return function (dispatch: Dispatch, _: () => RootState) {
+    dispatch({
+      type: "TOGGLE_TODO",
+      //Returns modified todo with the completion toggled
+      payload: { ...todo, completed: !todo.completed },
     });
   };
 }

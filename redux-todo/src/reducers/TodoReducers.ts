@@ -24,6 +24,17 @@ export const TodoReducers: Reducer<TodoState, TodoAction> = (
         return { todos: updatedTodos };
       }
       return state;
+    
+      case "TOGGLE_TODO":
+      if (action.payload) {
+        const toggledTodo = action.payload;
+        const updatedTodos = state.todos.map(todo =>
+          todo.id === toggledTodo.id ? { ...todo, completed: !todo.completed } : todo
+        );
+        return { todos: updatedTodos };
+      }
+      return state; // Return the current state if payload is undefined or incorrect type
+      
 
     default:
       return state;
