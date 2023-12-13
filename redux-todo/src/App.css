@@ -11,9 +11,12 @@ body, html {
 }
 
 #title{
-  color: rgb(19, 16, 185);
+  /* color: #1310b9; */
+  color: #8911d3;
   font-family: 'Inter', sans-serif;
   font-weight: 800;
+  font-size: 90px;
+  margin-bottom: 10px;
 }
 
 .App-header {
