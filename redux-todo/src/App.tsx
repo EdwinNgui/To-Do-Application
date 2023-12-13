@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect } from "react";
+import React from "react";
 
 // Custom hooks for redux thunk made by Rahat (see './hooks/thunk')
 import { useAppSelector, useAppDispatch } from "./hooks/thunk";
@@ -12,10 +12,6 @@ import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoForm";
 
 function App() {
-  useEffect(() => {
-    document.title = 'Task Time';
-  }, []);
-  
   //Tip: Implement useRef hook rather than useState
   // => because useState manages local state (also managed in redux) and can cause re-renders
   // => where as useRef does not re-render when values change
