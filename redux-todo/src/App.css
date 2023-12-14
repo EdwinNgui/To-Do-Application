@@ -1,7 +1,8 @@
 /* Font: Inter (font weights: 400, 800) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap");
 
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
 }
@@ -10,17 +11,16 @@ body, html {
   text-align: center;
 }
 
-#title{
-  /* color: #1310b9; */
+/* #title{
   color: #8911d3;
   font-family: 'Inter', sans-serif;
   font-weight: 800;
   font-size: 90px;
   margin-bottom: 10px;
-}
+} */
 
 .App-header {
-  background-color: #B6D4F0;
+  background-color: #b6d4f0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -29,7 +29,7 @@ body, html {
   color: white;
 }
 
-.allTodos{
+.allTodos {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -37,7 +37,7 @@ body, html {
 
 /* Handles notepad theme */
 .notepad {
-  background-color: #FFFEE7;
+  background-color: #fffee7;
   padding: 1vw 3vw;
   margin-top: 2vh;
   position: relative; /* Necessary for absolute positioning of pseudo-elements */
@@ -45,7 +45,7 @@ body, html {
 /* Thin lines on the left side */
 .notepad::before,
 .notepad::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;
@@ -74,12 +74,12 @@ body, html {
 }
 /* The white circle part */
 .todo-checkbox::before {
-  content: '';
+  content: "";
   display: block;
   width: 1em;
   height: 1em;
   border-radius: 50%;
-  background-color: #FFF;
+  background-color: #fff;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -87,8 +87,8 @@ body, html {
 }
 /* Marks the X */
 .todo-checkbox:checked::after {
-  content: 'X';
-  font-family: 'Inter', sans-serif;
+  content: "X";
+  font-family: "Inter", sans-serif;
   font-weight: 800;
   font-size: 0.8em;
   color: black;
@@ -98,8 +98,8 @@ body, html {
   transform: translate(-50%, -50%);
 }
 
-.singleTodo{
-  margin: 10px 0; 
+.singleTodo {
+  margin: 10px 0;
   padding: 10px 20px;
   display: flex;
   width: 60vw;
@@ -107,56 +107,56 @@ body, html {
   border-bottom: 1px solid #2e93c5;
 }
 
-.singleTodo:last-child{
+.singleTodo:last-child {
   border-bottom: none;
 }
 
-.todoText{
+.todoText {
   justify-content: flex-start;
   color: #000000;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 400;
   margin-left: 0.6vw;
 }
 
-.todoText.completed{
+.todoText.completed {
   text-decoration: line-through;
 }
 
 /* Handles delete button for each task */
-#del-btn{
+#del-btn {
   border-radius: 12px;
   padding: 8px 16px;
   border: 0px;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   color: #000000;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 800;
   font-size: 18px;
   margin-left: auto;
 }
 #del-btn:hover {
-  background-color: #E41818;
-  color: #FDFDFD;
+  background-color: #e41818;
+  color: #fdfdfd;
 }
 
 /* Handles the adding task button */
-#add-btn{
+#add-btn {
   padding: 7px 14px;
   border-radius: 25px;
   font-size: 2vh;
   margin-left: 20px;
   /* background-color: #0e24b0; */
   background-color: #1ca412;
-  color: #FDFDFD;
+  color: #fdfdfd;
   border: 0px;
 }
-#add-btn:hover{
+#add-btn:hover {
   background-color: #14d310;
-  color: #FDFDFD;
+  color: #fdfdfd;
 }
 
-#task-input{
+#task-input {
   width: 350px;
   padding: 10px;
   border-radius: 20px;
