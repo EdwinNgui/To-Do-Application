@@ -1,5 +1,24 @@
 📌 **Feedback on To-Do Application**
 
+## Part 2
+
+🔸 **Issue 1:**
+Was not maintaining dev and prod dependencies properly in `package.json` as I suggested! (but I fixed it again) 📦
+
+🔸 **Issue 2:**
+Updated the `content` prop of tailwind config to scan for all `.ts` and `.tsx` files. 📄
+
+🔸 **Issue 3:**
+Updated `index.css` with tailwind base rules and imported those rules in the application via `index.tsx` file import! 💅
+
+🔸 **Issue 4:**
+Commented styles for the `Title` in `App.css` and rewrote that CSS directly inside `TitleHeader.tsx` to check if tailwind is being applied properly! 💻
+
+🔸 **Issue 5:**
+Finally, in `index.tsx`, also fixed the console warning in the browser to render the page using the old way (`.render`) rather than using the latest and faster trend of React 18 (`.createRoot`) in `index.css` for faster reload and no warning! ⚡️
+
+**Part1**
+
 👉 **Point 0:**
 Normally, thunk is something I don't expect beginners to implement in their first go! I would recommend adding it later. But since you have added it, great! However, unfortunately, as a beginner, you have made a lot of mistakes. I have fixed your thunk errors and referred to the official documentation to do so. Hope you will understand. Nice effort, by the way! HappyCoding! 😊
 
