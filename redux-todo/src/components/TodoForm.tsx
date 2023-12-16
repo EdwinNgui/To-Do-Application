@@ -21,8 +21,10 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input placeholder="What's next?" ref={todoTaskRef} id="task-input" />
-      <button type="submit" id="add-btn">
+      <input placeholder="What's next?" ref={todoTaskRef} className="font-inter w-72 p-2 rounded-full border-0 text-lg text-black" />
+      <button type="submit" id="add-btn" 
+      className="font-inter px-7 py-2 rounded-3xl text-lg ml-5 bg-green-500 
+      hover:bg-green-600 text-white focus:outline-none">
         Add
       </button>
     </form>

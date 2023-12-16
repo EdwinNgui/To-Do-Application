@@ -8,6 +8,7 @@ import "./index.css";
 const rootElement = document.getElementById("root");
 
 //Regular index file, allows redux store to be accessed anywhere within the app
+//Changed to check for an existing room element before rendering
 if (rootElement !== null) {
   const appRoot = ReactDOM.createRoot(rootElement);
   appRoot.render(

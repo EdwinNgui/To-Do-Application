@@ -36,8 +36,10 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
+    // Formerly: App
+    <div className="text-center">
+      {/* Formerly App-Header */}
+      <header className="bg-blue-200 min-h-screen flex flex-col items-center text-white text-lg">
         <TitleHeader />
         <TodoForm addTodo={addTodoHandler} />
         {todos.length > 0 && (

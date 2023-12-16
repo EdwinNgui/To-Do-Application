@@ -3,8 +3,7 @@ import React from "react";
 const Title = () => {
   return (
     <h2
-      id="title"
-      className="text-purple-600 font-bold text-6xl mb-4 font-inter"
+      className="text-blue-800 font-bold text-7xl mt-10 mb-6 font-inter"
     >
       Task Time
     </h2>
