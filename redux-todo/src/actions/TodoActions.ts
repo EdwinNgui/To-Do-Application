@@ -23,9 +23,12 @@ export function AddTodoAction(task: string) {
         type: "ADD_TODO",
         //we have to create a todo object inside todos array!
         //just passing one string (or task) doesnt represent a todo!
+
+        //Payload: Creates a random id, uses the processed task and sets completed initially to false
         payload: {
           id: Math.random().toString(36).slice(2, 8),
           task,
+          completed: false,
         },
       });
     }
