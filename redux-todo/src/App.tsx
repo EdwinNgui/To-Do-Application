@@ -28,6 +28,7 @@ function App() {
   const handleCheckboxChange = (todo: Todo) => {
     dispatch(ToggleTodoAction(todo)); // Dispatches the action with the todo object
     console.log('Todo being updated:', todo);
+    console.log(Todo);
   };
 
   //Handles the adding of tasks

@@ -1,6 +1,6 @@
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://programusername:<password>@productdata.foqfygc.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://programusername:testingmongodb@productdata.foqfygc.mongodb.net/?retryWrites=true&w=majority";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -26,12 +26,11 @@ async function run() {
 run().catch(console.dir);
 
 
-
-//Note
-//USE REACT QUERY THROUGH THUNK => Hooks like useQuery and useMutation
+//Steps
+//USE REACT QUERY THROUGH THUNK => Hooks like useQuery
 //In React application use API calls => Axios or fetch
 //In Thunk action functions => call API to make requests to server => E.g. to authenticate user
-//useReact hooks like useQuery and useMutation to fetch data
+//useReact hooks like useQuery to fetch data
 
 //programusername
 //testingmongodb
