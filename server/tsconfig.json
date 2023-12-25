@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "types": ["node"],
+    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  }
+}
