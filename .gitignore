@@ -1,2 +1,3 @@
 redux-todo/node_modules
-server/node_modules
+express-server/node_modules
+express-server/mongo-data
