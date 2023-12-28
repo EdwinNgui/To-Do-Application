@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 // Custom hooks for redux thunk made by Rahat (see './hooks/thunk')
 import { useAppSelector, useAppDispatch } from "./hooks/thunk";
@@ -11,8 +11,7 @@ import { AuthState } from "./types/authTypes";
 import TitleHeader from "./components/TitleHeader";
 import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoForm";
-import LoginSection from "./components/LoginSection";
-import RegisterSection from "./components/RegisterSection";
+import AuthContainer from "./components/AuthContainer";
 
 function App() {
   //Tip: Implement useRef hook rather than useState
@@ -21,10 +20,8 @@ function App() {
   const dispatch = useAppDispatch();
   const Todo = useAppSelector((state: RootState) => state.todo);
   const { todos } = Todo;
-  // const authState: AuthState = useAppSelector((state: RootState) => state.auth); // Access 'auth' state
 
   const authState: { isLoggedIn: boolean } = useAppSelector((state: RootState) => state.auth);
-
 
   //Calls the remove function given the t value
   const removeHandler = (t: Todo) => {
@@ -56,7 +53,6 @@ function App() {
       <header className="bg-blue-200 min-h-screen flex flex-col items-center text-white text-lg">
         {/* Always displayed */}
         <TitleHeader />
-
         {/* Conditionally renders based on if user is logged in or not */}
         {authState.isLoggedIn ? (
           // authState : true , User IS logged in
@@ -71,25 +67,11 @@ function App() {
           )}
           </div>
         ) : (
-            // authState : false , User is NOT logged in
-            <div>
-            <LoginSection />
-            <RegisterSection />
+          // authState : false , User is NOT logged in
+          <div>
+            <AuthContainer />
           </div>
         )}
-
-        {/* <LoginSection />
-        <RegisterSection />
-
-        <TodoForm addTodo={addTodoHandler} />
-        {todos.length > 0 && (
-          <TodoList
-            todos={todos}
-            handleCheckboxChange={handleCheckboxChange}
-            removeHandler={removeHandler}
-          />
-        )} */}
-
 
       </header>
     </div>

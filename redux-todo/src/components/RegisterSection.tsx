@@ -1,19 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { login, logout } from '../actions/AuthActions';
-import { RootState } from "../types/todoTypes"; // Replace with your RootState and Todo types
-import { AuthState } from "../types/authTypes";
-import { useAppSelector, useAppDispatch } from "../hooks/thunk";
+import { login } from '../actions/AuthActions';
 
-const RegisterSection: React.FC = () => {
+interface RegisterSectionProps {
+    onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+    toggleSection: () => void;
+  }
+
+const RegisterSection: React.FC<RegisterSectionProps> = ({ onSubmit, toggleSection }) => {
   const dispatch = useDispatch();
-  const authState: AuthState = useAppSelector((state: RootState) => state.auth); // Access 'auth' state
-
-  //If user chooses to login instead
-  const handleLoginClick = () => {
-    dispatch(logout());
-    console.log('Redirecting to login...');
-  };
 
   const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -23,29 +18,43 @@ const RegisterSection: React.FC = () => {
     console.log('Pretending to create account in (add API calls to create account)');
   };
 
-// Ensure RegisterSection re-renders when authState changes
-useEffect(() => {
-    console.log('Auth State changed:', authState);
-    }, [authState]);
-
   return (
-    <div className="register-container">
-      <form onSubmit={handleRegister}>
-        <label>
+    <div className="w-full max-w-md mx-auto">
+    <form onSubmit={handleRegister} className="bg-white shadow-md rounded-lg px-10 pt-8 pb-10">
+      <div className="mb-6">
+        <label className="block text-gray-700 text-lg font-bold mb-4">
           Username:
-          <input type="text" name="username" />
+          <input
+            className="shadow appearance-none border rounded w-full py-3 px-4 text-lg text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            name="username"
+            placeholder="Username"
+          />
         </label>
-        <label>
+        <label className="block text-gray-700 text-lg font-bold mb-4">
           Password:
-          <input type="password" name="password" />
+          <input
+            className="shadow appearance-none border rounded w-full py-3 px-4 text-lg text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="password"
+            name="password"
+            placeholder="Password"
+          />
         </label>
-        <button type="submit">Register</button>
-      </form>
-
-      <button className="alternative-login-btn" onClick={handleLoginClick}>
-        Already have an account? Login (currently dispatches logout for testing)
+      </div>
+      <button
+        type="submit"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:shadow-outline"
+      >
+        Register
       </button>
-    </div>
+      <button
+        onClick={toggleSection}
+        className="block mt-6 text-lg text-blue-500 hover:text-blue-700 focus:outline-none"
+      >
+        Already have an account? Login
+      </button>
+    </form>
+  </div>
   );
 };
 

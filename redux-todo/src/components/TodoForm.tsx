@@ -1,6 +1,6 @@
 import React, { useRef, FormEvent } from "react";
 import { useDispatch } from 'react-redux';
-import { login, logout } from '../actions/AuthActions';
+import { logout } from '../actions/AuthActions';
 
 interface TodoFormProps {
   addTodo: (task: string) => void;
@@ -20,11 +20,6 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
       addTodo(task);
       todoTaskRef.current!.value = "";
     }
-
-
-    //Temp
-    dispatch(login());
-    console.log('TEMP LOGIN in TodoForm.tsx Login');
   };
 
   //If user chooses to login instead
