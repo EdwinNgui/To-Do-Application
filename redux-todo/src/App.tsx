@@ -56,16 +56,18 @@ function App() {
         {/* Conditionally renders based on if user is logged in or not */}
         {authState.isLoggedIn ? (
           // authState : true , User IS logged in
-          <div>
-          <TodoForm addTodo={addTodoHandler} />
-          {todos.length > 0 && (
-            <TodoList
-              todos={todos}
-              handleCheckboxChange={handleCheckboxChange}
-              removeHandler={removeHandler}
-            />
-          )}
+          <div className="w-full flex justify-center">
+          <div className="w-3/5"> {/* Adjust width as needed */}
+            <TodoForm addTodo={addTodoHandler} />
+            {todos.length > 0 && (
+              <TodoList
+                todos={todos}
+                handleCheckboxChange={handleCheckboxChange}
+                removeHandler={removeHandler}
+              />
+            )}
           </div>
+        </div>
         ) : (
           // authState : false , User is NOT logged in
           <div>
