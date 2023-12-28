@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect } from "react";
 
 // Custom hooks for redux thunk made by Rahat (see './hooks/thunk')
 import { useAppSelector, useAppDispatch } from "./hooks/thunk";
@@ -11,6 +11,8 @@ import { AuthState } from "./types/authTypes";
 import TitleHeader from "./components/TitleHeader";
 import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoForm";
+import LoginSection from "./components/LoginSection";
+import RegisterSection from "./components/RegisterSection";
 
 function App() {
   //Tip: Implement useRef hook rather than useState
@@ -19,7 +21,10 @@ function App() {
   const dispatch = useAppDispatch();
   const Todo = useAppSelector((state: RootState) => state.todo);
   const { todos } = Todo;
-  const authState: AuthState = useAppSelector((state: RootState) => state.auth); // Access 'auth' state
+  // const authState: AuthState = useAppSelector((state: RootState) => state.auth); // Access 'auth' state
+
+  const authState: { isLoggedIn: boolean } = useAppSelector((state: RootState) => state.auth);
+
 
   //Calls the remove function given the t value
   const removeHandler = (t: Todo) => {
@@ -39,12 +44,43 @@ function App() {
     dispatch(AddTodoAction(task));
   };
 
+  useEffect(() => {
+    // Log authState whenever it changes
+    console.log('Auth State app.tsx:', authState);
+  }, [authState]); // Run this effect whenever authState changes
+
   return (
     // Formerly: App
     <div className="text-center">
       {/* Formerly App-Header */}
       <header className="bg-blue-200 min-h-screen flex flex-col items-center text-white text-lg">
+        {/* Always displayed */}
         <TitleHeader />
+
+        {/* Conditionally renders based on if user is logged in or not */}
+        {authState.isLoggedIn ? (
+          // authState : true , User IS logged in
+          <div>
+          <TodoForm addTodo={addTodoHandler} />
+          {todos.length > 0 && (
+            <TodoList
+              todos={todos}
+              handleCheckboxChange={handleCheckboxChange}
+              removeHandler={removeHandler}
+            />
+          )}
+          </div>
+        ) : (
+            // authState : false , User is NOT logged in
+            <div>
+            <LoginSection />
+            <RegisterSection />
+          </div>
+        )}
+
+        {/* <LoginSection />
+        <RegisterSection />
+
         <TodoForm addTodo={addTodoHandler} />
         {todos.length > 0 && (
           <TodoList
@@ -52,7 +88,9 @@ function App() {
             handleCheckboxChange={handleCheckboxChange}
             removeHandler={removeHandler}
           />
-        )}
+        )} */}
+
+
       </header>
     </div>
   );
