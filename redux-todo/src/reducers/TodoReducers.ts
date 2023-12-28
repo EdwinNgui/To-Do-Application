@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import { TodoAction, TodoState } from "./../types";
+import { TodoAction, TodoState } from "../types/todoTypes";
 
 //we will always dispatch a todo object from pur actions as payload!
 //no more changes

@@ -4,7 +4,8 @@ import React from "react";
 // Custom hooks for redux thunk made by Rahat (see './hooks/thunk')
 import { useAppSelector, useAppDispatch } from "./hooks/thunk";
 import { AddTodoAction, RemoveTodoAction, ToggleTodoAction } from "./actions/TodoActions";
-import { RootState, Todo } from "./types"; // Replace with your RootState and Todo types
+import { RootState, Todo } from "./types/todoTypes"; // Replace with your RootState and Todo types
+import { AuthState } from "./types/authTypes";
 
 //Imports components for display
 import TitleHeader from "./components/TitleHeader";
@@ -16,8 +17,9 @@ function App() {
   // => because useState manages local state (also managed in redux) and can cause re-renders
   // => where as useRef does not re-render when values change
   const dispatch = useAppDispatch();
-  const Todo = useAppSelector((state: RootState) => state.Todo);
+  const Todo = useAppSelector((state: RootState) => state.todo);
   const { todos } = Todo;
+  const authState: AuthState = useAppSelector((state: RootState) => state.auth); // Access 'auth' state
 
   //Calls the remove function given the t value
   const removeHandler = (t: Todo) => {
@@ -29,6 +31,7 @@ function App() {
     dispatch(ToggleTodoAction(todo)); // Dispatches the action with the todo object
     console.log('Todo being updated:', todo);
     console.log(Todo);
+    console.log('Auth State:', authState);
   };
 
   //Handles the adding of tasks

@@ -1,5 +1,5 @@
 import React from "react";
-import { Todo } from "../types";
+import { Todo } from "../types/todoTypes";
 
 //For TS, defines the properties being moved between app.js and this component
 interface TodoListProps {
