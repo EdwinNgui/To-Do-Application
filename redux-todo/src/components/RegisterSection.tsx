@@ -12,8 +12,6 @@ const RegisterSection: React.FC<RegisterSectionProps> = ({ onSubmit, toggleSecti
 
   const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Add your logic to handle registration
-    // Dispatch other relevant actions if needed
     dispatch(login());
     console.log('Pretending to create account in (add API calls to create account)');
   };
@@ -35,8 +33,8 @@ const RegisterSection: React.FC<RegisterSectionProps> = ({ onSubmit, toggleSecti
           Password:
           <input
             className="shadow appearance-none border rounded w-full py-3 px-4 text-lg text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            type="password"
-            name="password"
+            type="current-password"
+            name="current-password"
             placeholder="Password"
           />
         </label>
@@ -48,6 +46,7 @@ const RegisterSection: React.FC<RegisterSectionProps> = ({ onSubmit, toggleSecti
         Register
       </button>
       <button
+        type="button"
         onClick={toggleSection}
         className="block mt-6 text-lg text-blue-500 hover:text-blue-700 focus:outline-none"
       >

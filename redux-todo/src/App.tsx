@@ -50,9 +50,11 @@ function App() {
     // Formerly: App
     <div className="text-center">
       {/* Formerly App-Header */}
+      
       <header className="bg-blue-200 min-h-screen flex flex-col items-center text-white text-lg">
         {/* Always displayed */}
         <TitleHeader />
+
         {/* Conditionally renders based on if user is logged in or not */}
         {authState.isLoggedIn ? (
           // authState : true , User IS logged in
