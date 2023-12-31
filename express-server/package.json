@@ -3,7 +3,7 @@
   "module": "src/server.ts",
   "type": "module",
   "scripts": {
-    "start": "node run src/server.ts",
+    "start": "nodemon src/server.ts",
     "startWithBun": "bun run src/server.ts",
     "build": "tsc -p .",
     "mongo-start": "docker-compose up -d",
