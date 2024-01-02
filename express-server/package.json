@@ -3,11 +3,10 @@
   "module": "src/server.ts",
   "type": "module",
   "scripts": {
-    "start": "node run src/server.ts",
-    "startWithBun": "bun run src/server.ts",
+    "start": "bun run src/server.ts",
     "build": "tsc -p .",
-    "mongo-start": "docker-compose up -d",
-    "mongo-stop": "docker-compose down"
+    "setup": "docker-compose up -d",
+    "destroy": "docker-compose down"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
