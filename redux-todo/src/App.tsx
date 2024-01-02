@@ -1,11 +1,10 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 // Custom hooks for redux thunk made by Rahat (see './hooks/thunk')
 import { useAppSelector, useAppDispatch } from "./hooks/thunk";
 import { AddTodoAction, RemoveTodoAction, ToggleTodoAction } from "./actions/TodoActions";
 import { RootState, Todo } from "./types/todoTypes"; // Replace with your RootState and Todo types
-import { AuthState } from "./types/authTypes";
 
 //Imports components for display
 import TitleHeader from "./components/TitleHeader";

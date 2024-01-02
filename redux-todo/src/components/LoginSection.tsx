@@ -41,6 +41,7 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onSubmit, toggleSection }) 
     } catch (error) {
       // Handle login failure
       console.error('Failed to log in:', (error as Error).message);
+      dispatch(login());
     }
   };
 
