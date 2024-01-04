@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { RootState, Todo } from "../types";
+import { RootState, Todo } from "../types/todoTypes";
 import { AnyAction } from "redux";
 
 // Adds the user-inputted task to the array
@@ -8,14 +8,13 @@ export function AddTodoAction(task: string) {
   //Tip: if fetching data from api make it async!
   //USE REACT QUERY THROUGH THUNK by returning aynsc action functions
   return function (dispatch: Dispatch<AnyAction>, getState: () => RootState) {
-    //get todoState from rootState & destructure todos from todoState
-    const {
-      Todo: { todos },
-    } = getState();
+    
+    //get todoState from rootState & destructure todos from RootState (formerly from todoState but we have two stores and reducers)
+    const { todo }: RootState = getState(); // Destructure 'todo' directly
 
     // Each element in todos (stores the tasks) is a todo (task object): Has property of id and task
     //Tip: Do not reuse variable names; makes it hard to read => Instead use descriptive variable names
-    const hasTodo = todos.find((todo) => todo.task === task);
+    const hasTodo = todo.todos.find((todoItem) => todoItem.task === task);
 
     // Checks if there is any existing in it
     if (!hasTodo && task.trim() !== "") {

@@ -1,6 +1,6 @@
 // types.ts
 import { ThunkDispatch } from "redux-thunk";
-import { store } from "./store";
+import { store } from "../store";
 import { AnyAction } from "redux";
 
 // Tip: Ensure the prop naming (task) is not the same as the interface (defined structure of objects) name 
