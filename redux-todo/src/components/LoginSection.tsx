@@ -2,48 +2,59 @@ import React, { useState, ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../actions/AuthActions';
 import useLoginVerification from './reactQuery/useLoginVerification'; // Import the login verification hook
+import { useMutation } from 'react-query';
+import axios from 'axios';
 
 interface LoginSectionProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   toggleSection: () => void;
 }
 
+//Sends HTTP post request to the URL => Returns success/fail
+const loginUserApi = async ({ email, password }: { email: string, password: string }) => {
+  const response = await axios.post('http://[::1]/v1/users/login', {
+    email,
+    password,
+  });
+
+  if (!response.data) {
+    throw new Error('Login failed');
+  }
+
+  return response.data;
+};
+
+//useMutation hook handles the HTTP request to API endpoint
 const LoginSection: React.FC<LoginSectionProps> = ({ onSubmit, toggleSection }) => {
   const dispatch = useDispatch();
-  const verifyLogin = useLoginVerification(); // Use the hook for login verification
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const mutation = useMutation(loginUserApi, {
+    onSuccess: (data: string) => {
+      //If success: Logs it works
+      console.log('Login successful', data);
+      dispatch(login()); //Then dispatches so page changes
+    },
+  });
 
-  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-  };
+const [email, setEmail] = useState<string>('');
+const [password, setPassword] = useState<string>('');
+  
+const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+  setEmail(e.target.value);
+};
 
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+  setPassword(e.target.value);
+};
 
-  // Attempts to log in
-  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
 
-    try {
-      const loginResult = await verifyLogin.mutateAsync({ username, password });
-
-      // Check if login verification was successful and the account is verified
-      if (loginResult && loginResult.verified) {
-        // If verified, dispatch the login action
-        dispatch(login());
-        // Handle successful login, maybe navigate to a different page
-      } else {
-        // Handle unverified account or other login failure
-        console.error('Failed to verify user login');
-      }
-    } catch (error) {
-      // Handle login failure
-      console.error('Failed to log in:', (error as Error).message);
-      dispatch(login());
-    }
-  };
+  // Trigger the mutation
+  mutation.mutate({
+    email,
+    password,
+  });
+};
 
   return (
     <div className="w-full max-w-md mx-auto">
@@ -54,10 +65,10 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onSubmit, toggleSection }) 
             <input
               className="shadow appearance-none border rounded w-full py-3 px-4 text-lg text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
-              name="username"
-              placeholder="Username"
-              value={username}
-              onChange={handleUsernameChange}
+              name="email"
+              placeholder="Email"
+              value={email}
+              onChange={handleEmailChange}
             />
           </label>
           <label className="block text-gray-700 text-lg font-bold mb-4">
@@ -74,10 +85,15 @@ const LoginSection: React.FC<LoginSectionProps> = ({ onSubmit, toggleSection }) 
         </div>
         <button
           type="submit"
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:shadow-outline"
+          disabled={mutation.isLoading}
+          className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:shadow-outline"
         >
-          Login
+          {mutation.isLoading ? 'Loggin In...' : 'Login'}
         </button>
+
+        {mutation.isError && (
+          <div className="text-red-500 mt-2">{(mutation.error as Error).message}</div>
+        )}
         <button
           type="button"
           onClick={toggleSection}

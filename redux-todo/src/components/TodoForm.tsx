@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { logout } from '../actions/AuthActions';
 
 interface TodoFormProps {
-  addTodo: (task: string) => void;
+  addTodo: (task: string, onTaskAdded: () => void) => void;
 }
 
 const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
@@ -17,8 +17,9 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
     e.preventDefault();
     const task = todoTaskRef.current?.value;
     if (task?.trim()) {
-      addTodo(task);
-      todoTaskRef.current!.value = "";
+      addTodo(task, () => {
+        todoTaskRef.current!.value = "";
+      });
     }
   };
 
