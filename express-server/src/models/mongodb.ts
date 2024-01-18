@@ -38,10 +38,11 @@ class Database {
   //___________common functions that requires to use both user and todo functions_____________
 
   //add todo to todo collection & append todo id to user.todos in user-collection
-  public async pushTodo(userId: string, todo: ITodo): Promise<void> {
+  public async pushTodo(userId: string, todo: ITodo): Promise<string> {
     try {
       const todoId = await this.todoFunctions.addTodo(todo);
       await this.userFunctions.appendTodoId(userId, todoId);
+      return todoId;
     } catch (err) {
       throw new Error((err as Error).message);
     }
@@ -69,17 +70,17 @@ class Database {
 
   //remove user from user collection
   public async unregisterUser(userId: string) {
-    this.userFunctions.removeUser(userId);
+    await this.userFunctions.removeUser(userId);
   }
 
   //verify user by email and password
   public async verifyUser(user: UserLoginDTO): Promise<string | null> {
-    return this.userFunctions.verifyUser(user);
+    return await this.userFunctions.verifyUser(user);
   }
 
   //get all todos of a user from todos collection
   public async getUserTodos(userId: string) {
-    return this.userFunctions.getUserTodos(userId);
+    return await this.userFunctions.getUserTodos(userId);
   }
 
   //delete all todos of a user from todos collection & user from user collection

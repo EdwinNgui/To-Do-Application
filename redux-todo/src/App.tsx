@@ -1,40 +1,36 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-// Custom hooks for redux thunk made by Rahat (see './hooks/thunk')
 import { useAppSelector, useAppDispatch } from "./hooks/thunk";
-import { AddTodoAction, RemoveTodoAction, ToggleTodoAction } from "./actions/TodoActions";
-import { RootState, Todo } from "./types"; // Replace with your RootState and Todo types
+import { RootState } from "./types/Root.Types";
+
+//Imports actions
+import { IsAuntheticatedAction } from "./actions/AuthActions";
+import { PopulateTodoAction } from "./actions/TodoActions";
 
 //Imports components for display
 import TitleHeader from "./components/TitleHeader";
-import TodoList from "./components/TodoList";
-import TodoForm from "./components/TodoForm";
+import AuthForm from "./components/AuthForm";
+import TodoContainer from "./components/TodoContainer";
 
 function App() {
-  //Tip: Implement useRef hook rather than useState
-  // => because useState manages local state (also managed in redux) and can cause re-renders
-  // => where as useRef does not re-render when values change
   const dispatch = useAppDispatch();
-  const Todo = useAppSelector((state: RootState) => state.Todo);
-  const { todos } = Todo;
+  const [loading, setLoading] = useState(true);
+  const { isAuthenticated } = useAppSelector((state: RootState) => state.Auth);
 
-  //Calls the remove function given the t value
-  const removeHandler = (t: Todo) => {
-    dispatch(RemoveTodoAction(t));
-  };
+  useEffect(() => {
+    dispatch(IsAuntheticatedAction()).finally(() => setLoading(false));
+  }, [dispatch]); // dispatch is a dependency
 
-  //Manages the checkbox logic
-  const handleCheckboxChange = (todo: Todo) => {
-    dispatch(ToggleTodoAction(todo)); // Dispatches the action with the todo object
-    console.log('Todo being updated:', todo);
-    console.log(Todo);
-  };
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(PopulateTodoAction());
+    }
+  }, [dispatch, isAuthenticated]);
 
-  //Handles the adding of tasks
-  const addTodoHandler = (task: string) => {
-    dispatch(AddTodoAction(task));
-  };
+  if (loading) {
+    return <div>Loading...</div>; // replace this with your actual loading component
+  }
 
   return (
     // Formerly: App
@@ -42,14 +38,7 @@ function App() {
       {/* Formerly App-Header */}
       <header className="bg-blue-200 min-h-screen flex flex-col items-center text-white text-lg">
         <TitleHeader />
-        <TodoForm addTodo={addTodoHandler} />
-        {todos.length > 0 && (
-          <TodoList
-            todos={todos}
-            handleCheckboxChange={handleCheckboxChange}
-            removeHandler={removeHandler}
-          />
-        )}
+        {isAuthenticated ? <TodoContainer /> : <AuthForm />}
       </header>
     </div>
   );
