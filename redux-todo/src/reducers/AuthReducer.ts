@@ -1,24 +1,19 @@
-//Authentication reducer for the react-redux to work with
+import { Reducer } from "redux";
+import { AuthAction, AuthState } from "../types/Auth.Types";
 
-import { LOGIN, LOGOUT } from '../types/authTypes';
-
-interface AuthState {
-  isLoggedIn: boolean;
-}
-
-const initialState: AuthState = {
-  isLoggedIn: false,
-};
-
-const authReducer = (state = initialState, action: { type: string }): AuthState => {
+//we will always dispatch a todo object from pur actions as payload!
+//no more changes
+export const AuthReducer: Reducer<AuthState, AuthAction> = (
+  state = { isAuthenticated: false },
+  action
+) => {
   switch (action.type) {
-    case LOGIN:
-      return { ...state, isLoggedIn: true };
-    case LOGOUT:
-      return { ...state, isLoggedIn: false };
+    case "IS_AUNTHENTICATED":
+      if (action.payload) {
+        return { isAuthenticated: action.payload };
+      }
+      return state;
     default:
       return state;
   }
 };
-
-export default authReducer;
