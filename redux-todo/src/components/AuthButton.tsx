@@ -35,17 +35,9 @@ export default function AuthButton({ emailRef, passwordRef }: AuthButtonProps) {
             ? "bg-green-500 hover:bg-green-700"
             : "bg-blue-500 hover:bg-blue-700"
         } text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:shadow-outline`}
-        // disabled={AuthMutationObject.isLoading}
       >
-        {/* {AuthMutationObject.isLoading ? "Registerring..." : "Register"}
-         */}
         {showLogin ? "Login" : "Register"}
       </button>
-      {/* {AuthMutationObject.isError && (
-          <div className="text-red-500 mt-2">
-            {(AuthMutationObject.error as Error).message}
-          </div>
-        )} */}
       <button
         type="button"
         onClick={() => setShowLogin(!showLogin)}
