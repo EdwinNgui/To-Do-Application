@@ -1,12 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { TodoReducer } from "./reducers/TodoReducer";
-import { AuthReducer } from "./reducers/AuthReducer";
+import rootReducer from "./reducers/rootReducer";
 
 //Store file with dispatching functionality located in the thunk dispatch hook
 export const store = configureStore({
-  reducer: {
-    Todo: TodoReducer,
-    Auth: AuthReducer,
-  },
+  reducer: rootReducer,
   devTools: true,
 });

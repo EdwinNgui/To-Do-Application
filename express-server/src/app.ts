@@ -13,11 +13,9 @@ const app = express();
 //middlewares
 
 //any routes can access our api
-//new change-needed for jwt to work properly with redux
 app.use(
   cors({
-    origin: "http://localhost:3000", //frontend url
-    credentials: true,
+    origin: "*",
   })
 );
 

@@ -1,36 +1,44 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
+// Custom hooks for redux thunk made by Rahat (see './hooks/thunk')
 import { useAppSelector, useAppDispatch } from "./hooks/thunk";
-import { RootState } from "./types/Root.Types";
-
-//Imports actions
-import { IsAuntheticatedAction } from "./actions/AuthActions";
-import { PopulateTodoAction } from "./actions/TodoActions";
+import { AddTodoAction, RemoveTodoAction, ToggleTodoAction } from "./actions/TodoActions";
+import { RootState, Todo } from "./types/todoTypes"; // Replace with your RootState and Todo types
 
 //Imports components for display
 import TitleHeader from "./components/TitleHeader";
-import AuthForm from "./components/AuthForm";
-import TodoContainer from "./components/TodoContainer";
+import TodoList from "./components/TodoList";
+import TodoForm from "./components/TodoForm";
+import AuthContainer from "./components/AuthContainer";
 
 function App() {
+  //Tip: Implement useRef hook rather than useState
+  // => because useState manages local state (also managed in redux) and can cause re-renders
+  // => where as useRef does not re-render when values change
   const dispatch = useAppDispatch();
-  const [loading, setLoading] = useState(true);
-  const { isAuthenticated } = useAppSelector((state: RootState) => state.Auth);
+  const Todo = useAppSelector((state: RootState) => state.todo);
+  const { todos } = Todo;
 
-  useEffect(() => {
-    dispatch(IsAuntheticatedAction()).finally(() => setLoading(false));
-  }, [dispatch]); // dispatch is a dependency
+  const authState: { isLoggedIn: boolean } = useAppSelector((state: RootState) => state.auth);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      dispatch(PopulateTodoAction());
-    }
-  }, [dispatch, isAuthenticated]);
+  //Calls the remove function given the t value
+  const removeHandler = (t: Todo) => {
+    dispatch(RemoveTodoAction(t));
+  };
 
-  if (loading) {
-    return <div>Loading...</div>; // replace this with your actual loading component
-  }
+  //Manages the checkbox logic
+  const handleCheckboxChange = (todo: Todo) => {
+    dispatch(ToggleTodoAction(todo)); // Dispatches the action with the todo object
+    console.log('Todo being updated:', todo);
+    console.log(Todo);
+    console.log('Auth State:', authState);
+  };
+
+  //Handles the adding of tasks
+  const addTodoHandler = (task: string) => {
+    dispatch(AddTodoAction(task));
+  };
 
   useEffect(() => {
     // Log authState whenever it changes
@@ -45,7 +53,29 @@ function App() {
       <header className="bg-blue-200 min-h-screen flex flex-col items-center text-white text-lg">
         {/* Always displayed */}
         <TitleHeader />
-        {isAuthenticated ? <TodoContainer /> : <AuthForm />}
+
+        {/* Conditionally renders based on if user is logged in or not */}
+        {authState.isLoggedIn ? (
+          // authState : true , User IS logged in
+          <div className="w-full flex justify-center">
+          <div className="w-3/5"> {/* Adjust width as needed */}
+            <TodoForm addTodo={addTodoHandler} />
+            {todos.length > 0 && (
+              <TodoList
+                todos={todos}
+                handleCheckboxChange={handleCheckboxChange}
+                removeHandler={removeHandler}
+              />
+            )}
+          </div>
+        </div>
+        ) : (
+          // authState : false , User is NOT logged in
+          <div>
+            <AuthContainer />
+          </div>
+        )}
+
       </header>
     </div>
   );

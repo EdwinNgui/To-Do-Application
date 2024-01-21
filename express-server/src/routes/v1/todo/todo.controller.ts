@@ -30,10 +30,9 @@ export default class TodoController {
     const todo = req.body as ITodo;
     const userId = (req.user as UserSessionDTO).userID;
     try {
-      const todoId = await myMongo.pushTodo(userId, todo);
+      await myMongo.pushTodo(userId, todo);
       res.status(201).json({
         message: "Todo added!!",
-        todoId,
       });
     } catch (err) {
       res.status(500).json({
