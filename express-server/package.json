@@ -3,11 +3,10 @@
   "module": "src/server.ts",
   "type": "module",
   "scripts": {
-    "start": "node run src/server.ts",
-    "startWithBun": "bun run src/server.ts",
+    "start": "bun run src/server.ts",
     "build": "tsc -p .",
-    "mongo-start": "docker-compose up -d",
-    "mongo-stop": "docker-compose down"
+    "setup": "docker-compose up -d",
+    "destroy": "docker-compose down"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -26,10 +25,10 @@
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.3",
-    "morgan": "^1.10.0",
-    "dotenv": "^16.3.1"
+    "morgan": "^1.10.0"
   }
 }
