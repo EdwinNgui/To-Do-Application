@@ -20,7 +20,7 @@ export function AddTodoAction(task: string) {
       };
 
       axios
-        .post("http://localhost:8000/v1/todos", newTodo, {
+        .post("http://localhost:80/v1/todos", newTodo, {
           withCredentials: true,
         })
         .then((response) => {
@@ -45,7 +45,7 @@ export function AddTodoAction(task: string) {
 export function RemoveTodoAction(todo: Todo) {
   return function (dispatch: Dispatch, _: () => RootState) {
     axios
-      .delete(`http://localhost:8000/v1/todos/${todo._id}`, {
+      .delete(`http://localhost:80/v1/todos/${todo._id}`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -68,7 +68,7 @@ export function ToggleTodoAction(todo: Todo) {
     const updatedTodo = { ...todo, completed: !todo.completed };
 
     axios
-      .put(`http://localhost:8000/v1/todos/${todo._id}`, updatedTodo, {
+      .put(`http://localhost:80/v1/todos/${todo._id}`, updatedTodo, {
         withCredentials: true,
       })
       .then((response) => {
@@ -88,7 +88,7 @@ export function ToggleTodoAction(todo: Todo) {
 export function PopulateTodoAction() {
   return function (dispatch: Dispatch, _: () => RootState) {
     axios
-      .get("http://localhost:8000/v1/todos", {
+      .get("http://localhost:80/v1/todos", {
         withCredentials: true,
       })
       .then((response) => {

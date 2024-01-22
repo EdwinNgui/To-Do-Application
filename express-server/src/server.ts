@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 //load dev environment variables using dotenv
 if (process.env.NODE_ENV !== "prod") dotenv.config();
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 80;
 const server = http.createServer(app); //using our app instance to create a server
 
 //start server

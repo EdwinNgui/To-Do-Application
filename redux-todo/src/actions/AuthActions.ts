@@ -16,7 +16,7 @@ export function AuntheticationAction(
         password,
       };
       const response = await axios.post(
-        "http://localhost:8000/v1/users/" + activity,
+        "http://localhost:80/v1/users/" + activity,
         body,
         {
           withCredentials: true,
@@ -38,7 +38,7 @@ export function IsAuntheticatedAction() {
   return async function (dispatch: Dispatch<AnyAction>, _: () => RootState) {
     try {
       const response = await axios.get(
-        "http://localhost:8000/v1/users/session",
+        "http://localhost:80/v1/users/session",
         {
           withCredentials: true,
         }

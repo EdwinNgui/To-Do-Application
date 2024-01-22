@@ -3,10 +3,10 @@ services:
   bun:
     image: rahat3062/bun
     ports:
-      - 80:8000
+      - 80:80
     volumes:
       #Must be changed depending on the volume
-      - C:\Users\moonb\VSCode\To-Do-Application\express-server:/app
+      - C:\Users\edwin\Documents\GitHub\To-Do-Application\express-server:/app
   mongodb:
     image: mongo
     ports:
